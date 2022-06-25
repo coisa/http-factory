@@ -48,6 +48,11 @@ final class BaseUrlRequestFactory implements RequestFactoryInterface
         $this->requestFactory = $requestFactory ?? Psr17FactoryDiscovery::findRequestFactory();
     }
 
+    public function getBaseUriFactory(): UriFactoryInterface
+    {
+        return $this->uriFactory;
+    }
+
     /**
      * {@inheritdoc}
      */

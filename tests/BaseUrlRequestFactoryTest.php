@@ -123,6 +123,22 @@ final class BaseUrlRequestFactoryTest extends TestCase
     }
 
     /**
+     * @covers ::getBaseUriFactory
+     */
+    public function testGetBaseUriFactoryWillReturnGivenBaseUriFactory(): void
+    {
+        $baseUriFactory = $this->prophesize(BaseUriFactory::class);
+
+        $this->baseUrlRequestFactory = new BaseUrlRequestFactory(
+            $baseUriFactory->reveal(),
+            $this->requestFactory->reveal(),
+            $this->uriFactory->reveal()
+        );
+
+        parent::assertSame($baseUriFactory->reveal(), $this->baseUrlRequestFactory->getBaseUriFactory());
+    }
+
+    /**
      * @covers ::createRequest
      */
     public function testCreateRequestWillProxyArgumentsToRequestFactoryPrefixingUriWithBaseUrl(): void
