@@ -83,6 +83,28 @@ final class BaseUrlRequestFactoryTest extends TestCase
     /**
      * @covers ::__construct
      */
+    public function testConstructWithBaseUriFactoryWillUseGivenBaseUriFactoryToCreateRequest(): void
+    {
+        $method = uniqid('method');
+        $uri    = uniqid('uri');
+
+        $baseUriFactory = $this->prophesize(BaseUriFactory::class);
+        $baseUriFactory->createUri($uri)->willReturn($this->uri->reveal())->shouldBeCalledOnce();
+
+        $this->requestFactory->createRequest($method, $this->uri->reveal())->willReturn($this->request->reveal());
+
+        $this->baseUrlRequestFactory = new BaseUrlRequestFactory(
+            $baseUriFactory->reveal(),
+            $this->requestFactory->reveal(),
+            $this->uriFactory->reveal()
+        );
+
+        $this->baseUrlRequestFactory->createRequest($method, $uri);
+    }
+
+    /**
+     * @covers ::__construct
+     */
     public function testConstructorCanBeInvokedWithoutUriFactory(): void
     {
         $factory = new BaseUrlRequestFactory(uniqid('baseUrl'), $this->requestFactory->reveal());

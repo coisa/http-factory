@@ -24,7 +24,7 @@ use Psr\Http\Message\UriInterface;
  *
  * @package CoiSA\Http\Message
  */
-final class BaseUriFactory implements UriFactoryInterface
+class BaseUriFactory implements UriFactoryInterface
 {
     private UriInterface $baseUri;
 

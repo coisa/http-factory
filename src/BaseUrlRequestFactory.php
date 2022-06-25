@@ -33,14 +33,18 @@ final class BaseUrlRequestFactory implements RequestFactoryInterface
     private RequestFactoryInterface $requestFactory;
 
     /**
-     * @param string|UriInterface $baseUrl
+     * @param BaseUriFactory|string|UriInterface $baseUrl
      */
     public function __construct(
         $baseUrl,
         RequestFactoryInterface $requestFactory = null,
         UriFactoryInterface $uriFactory = null
     ) {
-        $this->uriFactory     = new BaseUriFactory($baseUrl, $uriFactory);
+        if (!$baseUrl instanceof BaseUriFactory) {
+            $baseUrl = new BaseUriFactory($baseUrl, $uriFactory);
+        }
+
+        $this->uriFactory     = $baseUrl;
         $this->requestFactory = $requestFactory ?? Psr17FactoryDiscovery::findRequestFactory();
     }
 
