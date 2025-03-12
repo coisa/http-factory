@@ -33,7 +33,7 @@ class BaseUriFactory implements UriFactoryInterface
      *
      * @param string|UriInterface $baseUri
      */
-    public function __construct($baseUri, UriFactoryInterface $uriFactory = null)
+    public function __construct($baseUri, ?UriFactoryInterface $uriFactory = null)
     {
         if (!$baseUri instanceof UriInterface) {
             $uriFactory ??= Psr17FactoryDiscovery::findUriFactory();

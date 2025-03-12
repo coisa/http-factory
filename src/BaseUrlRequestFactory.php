@@ -37,8 +37,8 @@ final class BaseUrlRequestFactory implements RequestFactoryInterface
      */
     public function __construct(
         $baseUrl,
-        RequestFactoryInterface $requestFactory = null,
-        UriFactoryInterface $uriFactory = null
+        ?RequestFactoryInterface $requestFactory = null,
+        ?UriFactoryInterface $uriFactory = null
     ) {
         if (!$baseUrl instanceof BaseUriFactory) {
             $baseUrl = new BaseUriFactory($baseUrl, $uriFactory);
